@@ -169,8 +169,10 @@ export interface GraphData {
   edges: Array<{
     source: string;
     target: string;
-    type: string;
-    strength: number;
+    label?: string;
+    type?: string;
+    weight?: number;
+    strength?: number;
   }>;
 }
 
