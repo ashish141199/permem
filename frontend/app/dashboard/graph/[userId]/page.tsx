@@ -6,7 +6,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { getMe, getGraph, isAuthenticated, type Project, type GraphData } from "@/lib/api";
+import { getMe, getGraph, isAuthenticated, API_URL, type Project, type GraphData } from "@/lib/api";
 import { Logo } from "@/components/logo";
 
 // Type colors matching the backend
@@ -202,7 +202,7 @@ export default function GraphPage() {
         {graphData && graphData.nodes.length > 0 && project && (
           <div className="mt-6 text-center">
             <a
-              href={`http://localhost:3333/graph?projectId=${project.id}&userId=${encodeURIComponent(userId)}`}
+              href={`${API_URL}/graph?projectId=${project.id}&userId=${encodeURIComponent(userId)}`}
               target="_blank"
               rel="noopener noreferrer"
             >
