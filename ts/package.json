@@ -1,0 +1,46 @@
+{
+  "name": "permem",
+  "version": "0.1.2",
+  "description": "Persistent memory for AI - add memory to any LLM in one line",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "test": "bun test",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "ai",
+    "memory",
+    "llm",
+    "rag",
+    "vector",
+    "embeddings",
+    "persistent",
+    "chatbot",
+    "openai",
+    "anthropic"
+  ],
+  "author": "Ashish Kulkarni",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ashish141199/permem.git"
+  },
+  "homepage": "https://github.com/ashish141199/permem#readme",
+  "devDependencies": {
+    "@types/bun": "^1.0.0",
+    "typescript": "^5.7.2"
+  }
+}
