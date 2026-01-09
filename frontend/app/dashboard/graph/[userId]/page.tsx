@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { getMe, getGraph, isAuthenticated, type Project, type GraphData } from "@/lib/api";
+import { Logo } from "@/components/logo";
 
 // Type colors matching the backend
 const TYPE_COLORS: Record<string, string> = {
@@ -90,9 +91,7 @@ export default function GraphPage() {
       <header className="border-b border-border">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           <div className="flex items-center gap-4">
-            <Link href="/dashboard" className="text-xl font-bold">
-              PER<span className="text-primary">MEM</span>
-            </Link>
+            <Logo href="/dashboard" />
             <span className="text-muted-foreground">/</span>
             <span className="text-muted-foreground">{project?.name}</span>
             <span className="text-muted-foreground">/</span>

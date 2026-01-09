@@ -36,6 +36,7 @@ import {
   type Memory,
   type ProjectStats,
 } from "@/lib/api";
+import { Logo } from "@/components/logo";
 
 export default function DashboardPage() {
   const router = useRouter();
@@ -144,9 +145,7 @@ export default function DashboardPage() {
       <header className="border-b border-border">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           <div className="flex items-center gap-4">
-            <Link href="/" className="text-xl font-bold">
-              PER<span className="text-primary">MEM</span>
-            </Link>
+            <Logo />
             <span className="text-muted-foreground">/</span>
             <div className="flex items-center gap-2">
               <span>{project?.name}</span>
