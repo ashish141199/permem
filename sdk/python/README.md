@@ -48,24 +48,24 @@ async def main():
 ```python
 from permem import Permem
 
-async def chat_with_memory():
-    mem = Permem(user_id="user-123")
+async def chat_with_memory(user_message: str, user_id: str):
+    async with Permem(api_key="pk_your_api_key") as mem:
+        # Before LLM call - inject relevant memories
+        context = await mem.inject(user_message, user_id=user_id)
 
-    user_message = "My favorite color is blue"
+        system_prompt = "You are a helpful assistant."
+        if context.should_inject:
+            system_prompt += f"\n\n{context.injection_text}"
 
-    # Before LLM call - get relevant memories
-    context = await mem.inbound(user_message)
-    if context.should_inject:
-        system_prompt += context.injection_text
+        # ... call your LLM ...
+        assistant_response = "Nice to meet you!"
 
-    # ... call your LLM ...
-
-    # After LLM response - extract new memories
-    messages = [
-        {"role": "user", "content": user_message},
-        {"role": "assistant", "content": assistant_response}
-    ]
-    await mem.outbound(messages)
+        # After LLM response - extract new memories
+        messages = [
+            {"role": "user", "content": user_message},
+            {"role": "assistant", "content": assistant_response}
+        ]
+        await mem.extract(messages, user_id=user_id)
 ```
 
 ## Configuration
@@ -114,13 +114,13 @@ Modes:
 - `"balanced"` - Default balance
 - `"creative"` - Broader matches
 
-### inbound(message, context_length=0, conversation_id=None)
+### inject(message, user_id, context_length=0, conversation_id=None)
 
-Get relevant memories before LLM call.
+Get relevant memories before LLM call. Returns `InjectResponse` with `memories`, `injection_text`, and `should_inject`.
 
-### outbound(messages, context_length=None, conversation_id=None, extract_threshold=None, async_mode=False)
+### extract(messages, user_id, context_length=None, conversation_id=None, extract_threshold=None, async_mode=False)
 
-Extract memories from conversation after LLM response.
+Extract memories from conversation after LLM response. Returns `ExtractResponse` with `should_extract`, `extracted`, and `skipped_duplicates`.
 
 ### health()
 

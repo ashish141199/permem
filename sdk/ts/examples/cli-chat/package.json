@@ -1,0 +1,19 @@
+{
+  "name": "permem-cli-chat",
+  "version": "1.0.0",
+  "description": "CLI chat agent with Permem memory integration",
+  "type": "module",
+  "scripts": {
+    "start": "bun run index.ts"
+  },
+  "dependencies": {
+    "permem": "latest",
+    "ai": "^4.0.0",
+    "@openrouter/ai-sdk-provider": "^0.0.5",
+    "dotenv": "^16.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0"
+  }
+}

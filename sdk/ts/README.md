@@ -50,16 +50,18 @@ const { memories } = await recall("What are the user's preferences?", {
 })
 ```
 
-### 2. Auto Mode (inbound/outbound)
+### 2. Auto Mode (inject/extract)
 
 Perfect for chat applications - automatically handles memory injection and extraction:
 
 ```typescript
-import permem from 'permem'
+import { Permem } from 'permem'
 
-async function chat(userMessage: string) {
-  // INBOUND: Get relevant memories before LLM call
-  const { injectionText, shouldInject } = await permem.inbound(userMessage)
+const mem = new Permem({ apiKey: 'pk_your_api_key' })
+
+async function chat(userMessage: string, userId: string) {
+  // INJECT: Get relevant memories before LLM call
+  const { injectionText, shouldInject } = await mem.inject(userMessage, { userId })
 
   // Build your prompt with memories
   let systemPrompt = "You are a helpful assistant."
@@ -76,11 +78,11 @@ async function chat(userMessage: string) {
     ]
   })
 
-  // OUTBOUND: Extract and store new memories
-  await permem.outbound([
+  // EXTRACT: Extract and store new memories
+  await mem.extract([
     { role: 'user', content: userMessage },
     { role: 'assistant', content: response.choices[0].message.content }
-  ])
+  ], { userId })
 
   return response.choices[0].message.content
 }
@@ -162,12 +164,13 @@ const { memories } = await recall("programming preferences", {
 
 **Returns:** `{ memories: Memory[] }`
 
-### inbound(message, options?)
+### inject(message, options)
 
 Retrieve relevant memories before LLM call.
 
 ```typescript
-const result = await inbound("Hello, what's my name?", {
+const result = await mem.inject("Hello, what's my name?", {
+  userId: 'user-123',
   contextLength: 500,
   conversationId: 'conv-123'
 })
@@ -177,15 +180,16 @@ const result = await inbound("Hello, what's my name?", {
 // result.shouldInject - Whether injection is recommended
 ```
 
-### outbound(messages, options?)
+### extract(messages, options)
 
 Extract memories from conversation after LLM response.
 
 ```typescript
-await outbound([
+await mem.extract([
   { role: 'user', content: 'I work at Google' },
   { role: 'assistant', content: 'That\'s great!' }
 ], {
+  userId: 'user-123',
   contextLength: 1000,
   extractThreshold: 0.7,
   async: true // Fire-and-forget
