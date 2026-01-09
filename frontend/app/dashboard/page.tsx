@@ -132,27 +132,27 @@ export default function DashboardPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-zinc-900 to-black flex items-center justify-center">
-        <p className="text-zinc-400">Loading...</p>
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <p className="text-muted-foreground">Loading...</p>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-zinc-900 to-black text-white">
+    <div className="min-h-screen bg-background text-foreground">
       {/* Header */}
-      <header className="border-b border-zinc-800">
+      <header className="border-b border-border">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           <div className="flex items-center gap-4">
             <Link href="/" className="text-xl font-bold">
-              Permem
+              PER<span className="text-primary">MEM</span>
             </Link>
-            <span className="text-zinc-600">/</span>
+            <span className="text-muted-foreground">/</span>
             <div className="flex items-center gap-2">
-              <span className="text-zinc-300">{project?.name}</span>
+              <span>{project?.name}</span>
               <button
                 onClick={handleEditProject}
-                className="text-zinc-500 hover:text-white p-1"
+                className="text-muted-foreground hover:text-foreground p-1"
                 title="Edit project name"
               >
                 <svg
@@ -172,11 +172,10 @@ export default function DashboardPage() {
             </div>
           </div>
           <div className="flex items-center gap-4">
-            <span className="text-sm text-zinc-400">{user?.email}</span>
+            <span className="text-sm text-muted-foreground">{user?.email}</span>
             <Button
               variant="ghost"
               onClick={handleLogout}
-              className="text-zinc-400 hover:text-white hover:bg-white/10"
             >
               Logout
             </Button>
@@ -189,16 +188,16 @@ export default function DashboardPage() {
         {/* Stats Cards */}
         <div className="grid md:grid-cols-2 gap-4 mb-8">
           {/* Memory Count */}
-          <Card className="bg-zinc-900 border-zinc-800">
+          <Card>
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium text-zinc-400">
+              <CardTitle className="text-sm font-medium text-muted-foreground">
                 Memories
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold text-white">
+              <div className="text-3xl font-bold">
                 {stats?.memoryCount || 0}
-                <span className="text-sm font-normal text-zinc-500 ml-2">
+                <span className="text-sm font-normal text-muted-foreground ml-2">
                   / {stats?.maxMemories || 1000}
                 </span>
               </div>
@@ -206,22 +205,21 @@ export default function DashboardPage() {
           </Card>
 
           {/* API Key */}
-          <Card className="bg-zinc-900 border-zinc-800">
+          <Card>
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium text-zinc-400">
+              <CardTitle className="text-sm font-medium text-muted-foreground">
                 API Key
               </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="flex items-center gap-2">
-                <code className="text-sm bg-zinc-800 px-3 py-2 rounded flex-1 overflow-hidden text-zinc-300 font-mono">
+                <code className="text-sm bg-muted px-3 py-2 rounded flex-1 overflow-hidden font-mono">
                   {project?.apiKey || "..."}
                 </code>
                 <Button
                   size="sm"
                   variant="outline"
                   onClick={handleCopyApiKey}
-                  className="border-zinc-700 hover:bg-zinc-800 text-zinc-300"
                 >
                   {copied ? "Copied!" : "Copy"}
                 </Button>
@@ -231,53 +229,47 @@ export default function DashboardPage() {
         </div>
 
         {/* Recent Memories Table */}
-        <Card className="bg-zinc-900 border-zinc-800">
+        <Card>
           <CardHeader>
-            <CardTitle className="text-white">Recent Memories</CardTitle>
+            <CardTitle>Recent Memories</CardTitle>
           </CardHeader>
           <CardContent>
             {memories.length === 0 ? (
-              <p className="text-zinc-500 text-center py-8">
+              <p className="text-muted-foreground text-center py-8">
                 No memories yet. Use the SDK to start storing memories.
               </p>
             ) : (
               <Table>
                 <TableHeader>
-                  <TableRow className="border-zinc-800 hover:bg-transparent">
-                    <TableHead className="text-zinc-400">Summary</TableHead>
-                    <TableHead className="text-zinc-400">Type</TableHead>
-                    <TableHead className="text-zinc-400">User ID</TableHead>
-                    <TableHead className="text-zinc-400 text-right">
+                  <TableRow>
+                    <TableHead>Summary</TableHead>
+                    <TableHead>Type</TableHead>
+                    <TableHead>User ID</TableHead>
+                    <TableHead className="text-right">
                       Created
                     </TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {memories.map((memory) => (
-                    <TableRow
-                      key={memory.id}
-                      className="border-zinc-800 hover:bg-zinc-800/50"
-                    >
-                      <TableCell className="text-zinc-300 max-w-md truncate">
+                    <TableRow key={memory.id}>
+                      <TableCell className="max-w-md truncate">
                         {memory.summary}
                       </TableCell>
                       <TableCell>
-                        <Badge
-                          variant="outline"
-                          className="border-zinc-700 text-zinc-400"
-                        >
+                        <Badge variant="outline">
                           {memory.type}
                         </Badge>
                       </TableCell>
                       <TableCell>
                         <Link
                           href={`/dashboard/graph/${encodeURIComponent(memory.userId)}`}
-                          className="text-blue-400 hover:text-blue-300 hover:underline font-mono text-sm"
+                          className="text-primary hover:underline font-mono text-sm"
                         >
                           {memory.userId}
                         </Link>
                       </TableCell>
-                      <TableCell className="text-zinc-500 text-right">
+                      <TableCell className="text-muted-foreground text-right">
                         {formatDate(memory.createdAt)}
                       </TableCell>
                     </TableRow>
@@ -291,22 +283,22 @@ export default function DashboardPage() {
 
       {/* Edit Project Dialog */}
       <Dialog open={editDialogOpen} onOpenChange={setEditDialogOpen}>
-        <DialogContent className="bg-zinc-900 border-zinc-800 text-white">
+        <DialogContent>
           <DialogHeader>
             <DialogTitle>Edit Project</DialogTitle>
-            <DialogDescription className="text-zinc-400">
+            <DialogDescription>
               Change your project name.
             </DialogDescription>
           </DialogHeader>
           <div className="py-4">
-            <Label htmlFor="projectName" className="text-zinc-300">
+            <Label htmlFor="projectName">
               Project Name
             </Label>
             <Input
               id="projectName"
               value={editName}
               onChange={(e) => setEditName(e.target.value)}
-              className="bg-zinc-800 border-zinc-700 text-white mt-2"
+              className="mt-2"
               placeholder="Enter project name"
             />
           </div>
@@ -314,14 +306,12 @@ export default function DashboardPage() {
             <Button
               variant="outline"
               onClick={() => setEditDialogOpen(false)}
-              className="border-zinc-700 text-zinc-300 hover:bg-zinc-800"
             >
               Cancel
             </Button>
             <Button
               onClick={handleSaveProject}
               disabled={saving || !editName.trim()}
-              className="bg-white text-black hover:bg-zinc-200"
             >
               {saving ? "Saving..." : "Save"}
             </Button>

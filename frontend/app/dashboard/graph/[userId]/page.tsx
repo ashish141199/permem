@@ -59,21 +59,21 @@ export default function GraphPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-zinc-900 to-black flex items-center justify-center">
-        <p className="text-zinc-400">Loading graph...</p>
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <p className="text-muted-foreground">Loading graph...</p>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-zinc-900 to-black flex items-center justify-center">
-        <Card className="bg-zinc-900 border-zinc-800 max-w-md">
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <Card className="max-w-md">
           <CardContent className="pt-6">
-            <p className="text-red-400 text-center">{error}</p>
+            <p className="text-destructive text-center">{error}</p>
             <div className="mt-4 text-center">
               <Link href="/dashboard">
-                <Button variant="outline" className="border-zinc-700">
+                <Button variant="outline">
                   Back to Dashboard
                 </Button>
               </Link>
@@ -85,24 +85,21 @@ export default function GraphPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-zinc-900 to-black text-white">
+    <div className="min-h-screen bg-background text-foreground">
       {/* Header */}
-      <header className="border-b border-zinc-800">
+      <header className="border-b border-border">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           <div className="flex items-center gap-4">
             <Link href="/dashboard" className="text-xl font-bold">
-              Permem
+              PER<span className="text-primary">MEM</span>
             </Link>
-            <span className="text-zinc-600">/</span>
-            <span className="text-zinc-400">{project?.name}</span>
-            <span className="text-zinc-600">/</span>
-            <span className="text-zinc-300">Graph: {userId}</span>
+            <span className="text-muted-foreground">/</span>
+            <span className="text-muted-foreground">{project?.name}</span>
+            <span className="text-muted-foreground">/</span>
+            <span>Graph: {userId}</span>
           </div>
           <Link href="/dashboard">
-            <Button
-              variant="outline"
-              className="border-zinc-700 hover:bg-zinc-800 text-zinc-300"
-            >
+            <Button variant="outline">
               Back to Dashboard
             </Button>
           </Link>
@@ -113,26 +110,26 @@ export default function GraphPage() {
       <main className="container mx-auto px-4 py-8">
         {/* Stats */}
         <div className="grid md:grid-cols-2 gap-4 mb-8">
-          <Card className="bg-zinc-900 border-zinc-800">
+          <Card>
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium text-zinc-400">
+              <CardTitle className="text-sm font-medium text-muted-foreground">
                 Memories
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold text-white">
+              <div className="text-3xl font-bold">
                 {graphData?.nodes.length || 0}
               </div>
             </CardContent>
           </Card>
-          <Card className="bg-zinc-900 border-zinc-800">
+          <Card>
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium text-zinc-400">
+              <CardTitle className="text-sm font-medium text-muted-foreground">
                 Connections
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold text-white">
+              <div className="text-3xl font-bold">
                 {graphData?.edges.length || 0}
               </div>
             </CardContent>
@@ -140,9 +137,9 @@ export default function GraphPage() {
         </div>
 
         {/* Legend */}
-        <Card className="bg-zinc-900 border-zinc-800 mb-8">
+        <Card className="mb-8">
           <CardHeader>
-            <CardTitle className="text-white text-sm">Memory Types</CardTitle>
+            <CardTitle className="text-sm">Memory Types</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="flex flex-wrap gap-3">
@@ -152,7 +149,7 @@ export default function GraphPage() {
                     className="w-3 h-3 rounded-full"
                     style={{ backgroundColor: color }}
                   />
-                  <span className="text-sm text-zinc-400 capitalize">{type}</span>
+                  <span className="text-sm text-muted-foreground capitalize">{type}</span>
                 </div>
               ))}
             </div>
@@ -160,15 +157,15 @@ export default function GraphPage() {
         </Card>
 
         {/* Memories List */}
-        <Card className="bg-zinc-900 border-zinc-800">
+        <Card>
           <CardHeader>
-            <CardTitle className="text-white">
+            <CardTitle>
               Memories for {userId}
             </CardTitle>
           </CardHeader>
           <CardContent>
             {graphData?.nodes.length === 0 ? (
-              <p className="text-zinc-500 text-center py-8">
+              <p className="text-muted-foreground text-center py-8">
                 No memories found for this user.
               </p>
             ) : (
@@ -176,7 +173,7 @@ export default function GraphPage() {
                 {graphData?.nodes.map((node) => (
                   <div
                     key={node.id}
-                    className="p-4 bg-zinc-800/50 rounded-lg border border-zinc-700"
+                    className="p-4 bg-muted/50 rounded-lg border border-border"
                   >
                     <div className="flex items-start gap-3">
                       <div
@@ -184,15 +181,12 @@ export default function GraphPage() {
                         style={{ backgroundColor: TYPE_COLORS[node.type] || "#999" }}
                       />
                       <div className="flex-1 min-w-0">
-                        <p className="text-zinc-200">{node.label}</p>
+                        <p>{node.label}</p>
                         <div className="mt-2 flex items-center gap-2">
-                          <Badge
-                            variant="outline"
-                            className="border-zinc-700 text-zinc-400 text-xs"
-                          >
+                          <Badge variant="outline" className="text-xs">
                             {node.type}
                           </Badge>
-                          <span className="text-xs text-zinc-500">
+                          <span className="text-xs text-muted-foreground">
                             Importance: {node.importance}
                           </span>
                         </div>
@@ -213,11 +207,11 @@ export default function GraphPage() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <Button className="bg-white text-black hover:bg-zinc-200">
+              <Button>
                 Open Interactive Graph
               </Button>
             </a>
-            <p className="text-zinc-500 text-sm mt-2">
+            <p className="text-muted-foreground text-sm mt-2">
               Opens the full force-directed graph visualization
             </p>
           </div>
