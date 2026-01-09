@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Logo } from "@/components/logo";
-import { Zap, Brain, GitBranch } from "lucide-react";
+import { Zap, Brain, GitBranch, Github } from "lucide-react";
 
 export default function Home() {
   return (
@@ -10,6 +11,15 @@ export default function Home() {
       <header className="container mx-auto px-4 py-6 flex justify-between items-center">
         <Logo />
         <div className="flex items-center gap-3">
+          <a
+            href="https://github.com/ashish141199/permem"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Button variant="ghost" size="icon">
+              <Github className="w-5 h-5" />
+            </Button>
+          </a>
           <Link href="/auth/signup">
             <Button size="sm">
               Get Started
@@ -51,48 +61,53 @@ export default function Home() {
         </div>
 
         {/* Code Examples */}
-        <div className="max-w-4xl mx-auto mt-16 grid md:grid-cols-2 gap-4">
-          {/* TypeScript Example */}
-          <div className="bg-card border border-border rounded-lg overflow-hidden">
-            <div className="px-4 py-2 border-b border-border flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full bg-destructive/80"></div>
-              <div className="w-3 h-3 rounded-full bg-yellow-500/80"></div>
-              <div className="w-3 h-3 rounded-full bg-green-500/80"></div>
-              <span className="ml-2 text-sm text-muted-foreground">TypeScript</span>
-            </div>
-            <pre className="p-4 text-sm overflow-x-auto">
-              <code className="text-foreground/80">
-                <span className="text-primary">import</span> Permem <span className="text-primary">from</span> <span className="text-green-400">&apos;permem&apos;</span>{"\n\n"}
-                <span className="text-primary">const</span> permem = <span className="text-primary">new</span> <span className="text-blue-400">Permem</span>(<span className="text-green-400">&apos;pk_...&apos;</span>){"\n\n"}
-                <span className="text-muted-foreground">// Before LLM call - inject relevant memories</span>{"\n"}
-                <span className="text-primary">const</span> {"{"} injectionText {"}"} = <span className="text-primary">await</span> permem.<span className="text-blue-400">inject</span>({"\n"}
-                {"  "}userMessage, {"{"} userId {"}"}){"\n\n"}
-                <span className="text-muted-foreground">// After LLM response - extract new memories</span>{"\n"}
-                <span className="text-primary">await</span> permem.<span className="text-blue-400">extract</span>(messages, {"{"} userId {"}"})
-              </code>
-            </pre>
-          </div>
-
-          {/* Python Example */}
-          <div className="bg-card border border-border rounded-lg overflow-hidden">
-            <div className="px-4 py-2 border-b border-border flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full bg-destructive/80"></div>
-              <div className="w-3 h-3 rounded-full bg-yellow-500/80"></div>
-              <div className="w-3 h-3 rounded-full bg-green-500/80"></div>
-              <span className="ml-2 text-sm text-muted-foreground">Python</span>
-            </div>
-            <pre className="p-4 text-sm overflow-x-auto">
-              <code className="text-foreground/80">
-                <span className="text-primary">from</span> permem <span className="text-primary">import</span> Permem{"\n\n"}
-                permem = <span className="text-blue-400">Permem</span>(<span className="text-green-400">&quot;pk_...&quot;</span>){"\n\n"}
-                <span className="text-muted-foreground"># Before LLM call - inject relevant memories</span>{"\n"}
-                result = <span className="text-primary">await</span> permem.<span className="text-blue-400">inject</span>({"\n"}
-                {"  "}user_message, user_id=user_id){"\n\n"}
-                <span className="text-muted-foreground"># After LLM response - extract new memories</span>{"\n"}
-                <span className="text-primary">await</span> permem.<span className="text-blue-400">extract</span>(messages, user_id=user_id)
-              </code>
-            </pre>
-          </div>
+        <div className="max-w-2xl mx-auto mt-16">
+          <Tabs defaultValue="typescript" className="w-full">
+            <TabsList className="grid w-full grid-cols-2 mb-4">
+              <TabsTrigger value="typescript">TypeScript</TabsTrigger>
+              <TabsTrigger value="python">Python</TabsTrigger>
+            </TabsList>
+            <TabsContent value="typescript">
+              <div className="bg-card border border-border rounded-lg overflow-hidden">
+                <div className="px-4 py-2 border-b border-border flex items-center gap-2">
+                  <div className="w-3 h-3 rounded-full bg-destructive/80"></div>
+                  <div className="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+                  <div className="w-3 h-3 rounded-full bg-green-500/80"></div>
+                </div>
+                <pre className="p-4 text-sm overflow-x-auto">
+                  <code className="text-foreground/80">
+                    <span className="text-primary">import</span> Permem <span className="text-primary">from</span> <span className="text-green-400">&apos;permem&apos;</span>{"\n\n"}
+                    <span className="text-primary">const</span> permem = <span className="text-primary">new</span> <span className="text-blue-400">Permem</span>(<span className="text-green-400">&apos;pk_...&apos;</span>){"\n\n"}
+                    <span className="text-muted-foreground">// Before LLM call - inject relevant memories</span>{"\n"}
+                    <span className="text-primary">const</span> {"{"} injectionText {"}"} = <span className="text-primary">await</span> permem.<span className="text-blue-400">inject</span>({"\n"}
+                    {"  "}userMessage, {"{"} userId {"}"}){"\n\n"}
+                    <span className="text-muted-foreground">// After LLM response - extract new memories</span>{"\n"}
+                    <span className="text-primary">await</span> permem.<span className="text-blue-400">extract</span>(messages, {"{"} userId {"}"})
+                  </code>
+                </pre>
+              </div>
+            </TabsContent>
+            <TabsContent value="python">
+              <div className="bg-card border border-border rounded-lg overflow-hidden">
+                <div className="px-4 py-2 border-b border-border flex items-center gap-2">
+                  <div className="w-3 h-3 rounded-full bg-destructive/80"></div>
+                  <div className="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+                  <div className="w-3 h-3 rounded-full bg-green-500/80"></div>
+                </div>
+                <pre className="p-4 text-sm overflow-x-auto">
+                  <code className="text-foreground/80">
+                    <span className="text-primary">from</span> permem <span className="text-primary">import</span> Permem{"\n\n"}
+                    permem = <span className="text-blue-400">Permem</span>(<span className="text-green-400">&quot;pk_...&quot;</span>){"\n\n"}
+                    <span className="text-muted-foreground"># Before LLM call - inject relevant memories</span>{"\n"}
+                    result = <span className="text-primary">await</span> permem.<span className="text-blue-400">inject</span>({"\n"}
+                    {"  "}user_message, user_id=user_id){"\n\n"}
+                    <span className="text-muted-foreground"># After LLM response - extract new memories</span>{"\n"}
+                    <span className="text-primary">await</span> permem.<span className="text-blue-400">extract</span>(messages, user_id=user_id)
+                  </code>
+                </pre>
+              </div>
+            </TabsContent>
+          </Tabs>
         </div>
 
         {/* Features */}
