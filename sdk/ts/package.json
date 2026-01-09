@@ -38,7 +38,7 @@
     "type": "git",
     "url": "https://github.com/ashish141199/permem.git"
   },
-  "homepage": "https://github.com/ashish141199/permem#readme",
+  "homepage": "https://permem.dev",
   "devDependencies": {
     "@types/bun": "^1.0.0",
     "typescript": "^5.7.2"

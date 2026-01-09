@@ -32,5 +32,9 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/ashish141199/permem"
+Homepage = "https://permem.dev"
+Documentation = "https://permem.dev/docs"
 Repository = "https://github.com/ashish141199/permem.git"
+
+[tool.hatch.build.targets.wheel]
+packages = ["permem"]
