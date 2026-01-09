@@ -230,7 +230,6 @@ const { memories } = await permem.recall("family members", {
 
 ```bash
 PERMEM_API_KEY=pk_your_api_key    # Your API key from permem.dev
-PERMEM_URL=https://api.permem.dev # API endpoint (optional, for self-hosting)
 ```
 
 ### Direct Configuration
@@ -240,8 +239,7 @@ PERMEM_URL=https://api.permem.dev # API endpoint (optional, for self-hosting)
 import Permem from 'permem'
 
 const permem = new Permem('pk_your_api_key', {
-  url: 'https://api.permem.dev',  // Optional
-  maxContextLength: 8000          // Optional
+  maxContextLength: 8000  // Optional
 })
 ```
 
@@ -251,8 +249,7 @@ from permem import Permem
 
 permem = Permem(
     api_key="pk_your_api_key",
-    url="https://api.permem.dev",  # Optional
-    max_context_length=8000        # Optional
+    max_context_length=8000  # Optional
 )
 ```
 
@@ -266,19 +263,6 @@ Your dashboard at [permem.dev](https://permem.dev) provides:
 - **Memory Stats** — Track usage against your limit (1000 free)
 - **Recent Memories** — Browse all stored memories
 - **Knowledge Graph** — Visualize memory connections per user
-
----
-
-## Self-Hosting
-
-Permem is open source. To self-host:
-
-1. Clone the core repo: `git clone https://github.com/ashish141199/permem-core`
-2. Set up PostgreSQL with pgvector
-3. Configure your OpenAI API key for embeddings
-4. Run the server
-
-See [permem-core](https://github.com/ashish141199/permem-core) for detailed setup instructions.
 
 ---
 

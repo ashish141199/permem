@@ -37,6 +37,7 @@ import {
   type ProjectStats,
 } from "@/lib/api";
 import { Logo } from "@/components/logo";
+import { Github } from "lucide-react";
 
 export default function DashboardPage() {
   const router = useRouter();
@@ -172,6 +173,16 @@ export default function DashboardPage() {
           </div>
           <div className="flex items-center gap-4">
             <span className="text-sm text-muted-foreground">{user?.email}</span>
+            <a
+              href="https://github.com/ashish141199/permem"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Button variant="outline" size="sm">
+                <Github className="w-4 h-4 mr-2" />
+                Docs
+              </Button>
+            </a>
             <Button
               variant="ghost"
               onClick={handleLogout}
